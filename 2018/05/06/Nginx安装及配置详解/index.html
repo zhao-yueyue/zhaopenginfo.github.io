@@ -1,319 +1,201 @@
-<!DOCTYPE html>
-<html lang="zh-Hans">
+<!DOCTYPE HTML>
+<html class="no-js" lang="zh-CN">
+<!--
+//                            _ooOoo_
+//                           o8888888o
+//                           88" . "88
+//                           (| -_- |)
+//                            O\ = /O
+//                        ____/`---'\____
+//                      .   ' \\| |// `.
+//                       / \\||| : |||// \
+//                     / _||||| -:- |||||- \
+//                       | | \\\ - /// | |
+//                     | \_| ''\---/'' | |
+//                      \ .-\__ `-` ___/-. /
+//                   ___`. .' /--.--\ `. . __
+//                ."" '< `.___\_<|>_/___.' >'"".
+//               | | : `- \`.;`\ _ /`;.`/ - ` : | |
+//                 \ \ `-. \_ __\ /__ _/ .-` / /
+//         ======`-.____`-.___\_____/___.-`____.-'======
+//                            `=---='
+//                 拦截插件累计拦截逗比攻击"1381438"次！
+//         .............................................
+//                  佛祖保佑             永无BUG
+//          佛曰:
+//                  写字楼里写字间，写字间里程序员；
+//                  程序人员写程序，又拿程序换酒钱。
+//                  酒醒只在网上坐，酒醉还来网下眠；
+//                  酒醉酒醒日复日，网上网下年复年。
+//                  但愿老死电脑间，不愿鞠躬老板前；
+//                  奔驰宝马贵者趣，公交自行程序员。
+//                  别人笑我忒疯癫，我笑自己命太贱；
+//                  不见满街漂亮妹，哪个归得程序员？
+-->
 <head>
-
-    <!--[if lt IE 9]>
-        <style>body {display: none; background: none !important} </style>
-        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
-    <![endif]-->
-
+    <!--[if lte IE 9]>
+<meta http-equiv="refresh" content="0;url=http://blog.zhaoyueyue.com/warn.html">
+<![endif]-->
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="format-detection" content="telephone=no" />
-<meta name="author" content="诸君拔剑ba_" />
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+<meta http-equiv="mobile-agent" content="format=html5; url=http://blog.zhaoyueyue.com">
+<meta name="author" content="诸君拔剑ba_">
+<link rel="stylesheet" href="/css/SimpleStyle.min.css">
+
+<link rel="shortcut icon" href="/images/favicon.png">
 
 
+<title>nginx安装及配置详解 - Please Don&#39;t Learn</title>
 
-<meta name="description" content="nginx概述nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。 这里主要通过三个方面简单介绍nginx  反向代理 负载均衡 nginx特点">
-<meta name="keywords" content="Nginx">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Nginx安装及配置详解">
-<meta property="og:url" content="http://blog.zhaoyueyue.com/2018/05/06/Nginx安装及配置详解/index.html">
-<meta property="og:site_name" content="Please Don&#39;t Learn">
-<meta property="og:description" content="nginx概述nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。 这里主要通过三个方面简单介绍nginx  反向代理 负载均衡 nginx特点">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img1.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img2.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img3.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img4.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img5.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img6.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img7.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img8.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img9.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img10.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img11.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img12.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img13.png">
-<meta property="og:image" content="http://blog.zhaoyueyue.com/images/img14.png">
-<meta property="og:updated_time" content="2018-05-06T09:56:09.513Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx安装及配置详解">
-<meta name="twitter:description" content="nginx概述nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。 这里主要通过三个方面简单介绍nginx  反向代理 负载均衡 nginx特点">
-<meta name="twitter:image" content="http://blog.zhaoyueyue.com/images/img1.png">
+<meta name="keywords" content="">
 
-<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
-
-
-    <link rel="alternate" href="/atom.xml" title="Please Don&#39;t Learn" type="application/atom+xml">
-
-
-
-    <link rel="shortcut icon" href="/favicon.png">
-
-
-
-    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
-
-
-
-    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
-
-
-
-    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
-
-
-<link rel="stylesheet" href="/css/style.css">
-
-
-
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-
-
-<title>Nginx安装及配置详解 | Please Don&#39;t Learn</title>
-
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
-
-<script>
-    var yiliaConfig = {
-        fancybox: true,
-        animate: true,
-        isHome: false,
-        isPost: true,
-        isArchive: false,
-        isTag: false,
-        isCategory: false,
-        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
-        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
-        search: true
-    }
-</script>
-
-
-    <script> yiliaConfig.jquery_ui = [false]; </script>
-
-
-
-    <script> yiliaConfig.rootUrl = "\/";</script>
-
-
-
-
-
+<meta name="description " content="这一切都是命运石之门的选择！">
 
 </head>
 <body>
-  <div id="container">
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-    <header id="header" class="inner">
-        <a href="/" class="profilepic">
-            <img src="/img/avatar.png" class="animated zoomIn">
+<div id="nav">
+    <nav class="nav-menu">
+        <a class="site-name current" href="/" title="说">说</a>
+        <a class="site-index current" href="/"><i class="fa fa-home"></i><span>Home</span></a>
+        <a href="/archives" title="Archives"><i class="fa fa-archives"></i><span>Archives</span></a>
+        <a href="/tags" title="Tags"><i class="fa fa-tags"></i><span>Tags</span></a>
+        <!-- custom single page of menus -->
+        
+        
+        <a href="/help" title="帮助">
+            <i class="fa fa-question-circle"></i>
+            <span>帮助</span>
         </a>
-        <hgroup>
-          <h1 class="header-author"><a href="/">诸君拔剑ba_</a></h1>
-        </hgroup>
+        
+    </nav>
+</div>
 
-        
-        <p class="header-subtitle">求求你别学了</p>
-        
+<div class="nav-user">
+    <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
+    <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
+    <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a>
+</div>
 
+<div id="wrapper" class="clearfix">
+    <div id="body">
+        <div class="main" id="main">
+            <div id="cover">
+    <div class="cover-img"></div>
+    <div class="cover-info">
         
-            <form id="search-form">
-            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
-            <i class="fa fa-times" onclick="resetSearch()"></i>
-            </form>
-            <div id="local-search-result"></div>
-            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
-        
-
-
-        
-            <div id="switch-btn" class="switch-btn">
-                <div class="icon">
-                    <div class="icon-ctn">
-                        <div class="icon-wrap icon-house" data-idx="0">
-                            <div class="birdhouse"></div>
-                            <div class="birdhouse_holes"></div>
-                        </div>
-                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
-                            <div class="ribbon"></div>
-                        </div>
-                        
-                        <div class="icon-wrap icon-link hide" data-idx="2">
-                            <div class="loopback_l"></div>
-                            <div class="loopback_r"></div>
-                        </div>
-                        
-                        
-                    </div>
-                    
-                </div>
-                <div class="tips-box hide">
-                    <div class="tips-arrow"></div>
-                    <ul class="tips-inner">
-                        <li>菜单</li>
-                        <li>标签</li>
-                        
-                        <li>友情链接</li>
-                        
-                        
-                    </ul>
-                </div>
+        <h1 class="cover-siteName">说IT</h1>
+        <h3 class="cover-siteTitle">用代码摇滚这个世界</h3>
+        <p class="cover-siteDesc">一个关注技术与人文的IT博客</p>
+        <div class="cover-sns">
+            
+            <div class="btn btn-telegram">
+                <a href="http://t.me/kunyintang" target="_blank" title="telegram" ref="friend">
+                    <i class="fa fa-telegram"></i>
+                </a>
             </div>
+            
+            <div class="btn btn-instagram">
+                <a href="https://www.instagram.com/mtangsir/" target="_blank" title="instagram" ref="friend">
+                    <i class="fa fa-instagram"></i>
+                </a>
+            </div>
+            
+            <div class="btn btn-twitter">
+                <a href="https://twitter.com/tangkunyin" target="_blank" title="twitter" ref="friend">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </div>
+            
+            <div class="btn btn-github">
+                <a href="https://github.com/tangkunyin" target="_blank" title="github" ref="friend">
+                    <i class="fa fa-github"></i>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+            <div class="page-title">
+    <ul>
+        <li><a href="/">最新</a></li>
         
+            
+                <li class="">
+                    <a href="/categories/tech-notes" data-name="技术">技术</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/humanities" data-name="人文">人文</a>
+                </li>
+            
+                <li class="">
+                    <a href="/categories/others" data-name="其他">其他</a>
+                </li>
+            
+        
+        <li class="page-search">
+    <form id="search" class="search-form">
+        <label for="s" class="sr-only">Input Search key Words Here</label>
+        <input class="search-field" type="text" name="s" class="text" placeholder="Input Search key Words Here" />
+        <button type="submit" class="search-form-submit" title="Search"><i class="fa fa-search"></i></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+</li>
 
-        <div id="switch-area" class="switch-area">
-            <div class="switch-wrap">
-                <section class="switch-part switch-part1">
-                    <nav class="header-menu">
-                        <ul>
-                        
-                            <li><a href="/">主页</a></li>
-                        
-                            <li><a href="/tags/">标签</a></li>
-                        
-                            <li><a href="/archives/">所有文章</a></li>
-                        
-                        </ul>
-                    </nav>
-                    <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" href="mailto:i@zhaoyueyue.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" href="https://github.com/zhaopenginfo" title="GitHub"></a>
-                            
-                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-                    </nav>
-                </section>
-                
-                
-                <section class="switch-part switch-part2">
-                    <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx/">Nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hello-world/">hello world</a></li></ul>
-                    </div>
-                </section>
-                
-                
-                
-                <section class="switch-part switch-part3">
-                    <div id="js-friends">
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
-                      <a class="main-nav-link switch-friends-link" href="https://blog.imyxiao.com/">YXIAO</a>
-                    
-                    </div>
-                </section>
-                
-
-                
+    </ul>
+</div>
+<div class="main-inner">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-header">
+            <div class="post-author clearfix">
+                <a class="avatar fleft" href="" target="_blank">
+                    <img width="48" src="" alt="avatar"/>
+                </a>
+                <p><span class="label">作者</span>
+                    <a href="" target="_blank"></a>
+                    <span title="最后编辑于2018-05-06">2018-05-06</span>
+                </p>
+                <p></p>
+            </div>
+            <h2 class="post-title">Nginx安装及配置详解</h2>
+            <div class="post-meta">
+                本文总共10030个字 | 您是第<span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span>位看到它们的小伙伴
             </div>
         </div>
-    </header>                
-</div>
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-      <div class="overlay">
-          <div class="slider-trigger"></div>
-          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">诸君拔剑ba_</a></h1>
-      </div>
-    <div class="intrude-less">
-        <header id="header" class="inner">
-            <a href="/" class="profilepic">
-                <img src="/img/avatar.png" class="animated zoomIn">
-            </a>
-            <hgroup>
-              <h1 class="header-author"><a href="/" title="回到主页">诸君拔剑ba_</a></h1>
-            </hgroup>
-            
-            <p class="header-subtitle">求求你别学了</p>
-            
-            <nav class="header-menu">
-                <ul>
-                
-                    <li><a href="/">主页</a></li>
-                
-                    <li><a href="/tags/">标签</a></li>
-                
-                    <li><a href="/archives/">所有文章</a></li>
-                
-                <div class="clearfix"></div>
-                </ul>
-            </nav>
-            <nav class="header-nav">
-                        <ul class="social">
-                            
-                                <a class="fa Email" target="_blank" href="mailto:i@zhaoyueyue.com" title="Email"></a>
-                            
-                                <a class="fa GitHub" target="_blank" href="https://github.com/zhaopenginfo" title="GitHub"></a>
-                            
-                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
-                            
-                        </ul>
-            </nav>
-        </header>                
-    </div>
-    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
-</nav>
-      <div class="body-wrap"><article id="post-Nginx安装及配置详解" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/05/06/Nginx安装及配置详解/" class="article-date">
-      <time datetime="2018-05-06T00:28:06.330Z" itemprop="datePublished">2018-05-06</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Nginx安装及配置详解
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx/">Nginx</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="nginx概述"><a href="#nginx概述" class="headerlink" title="nginx概述"></a>nginx概述</h2><p>nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。</p>
+        <div class="post-content markdown-body">
+            <h2 id="nginx概述"><a href="#nginx概述" class="headerlink" title="nginx概述"></a>nginx概述</h2><p>nginx是一款自由的、开源的、高性能的HTTP服务器和反向代理服务器；同时也是一个IMAP、POP3、SMTP代理服务器；nginx可以作为一个HTTP服务器进行网站的发布处理，另外nginx可以作为反向代理进行负载均衡的实现。</p>
 <p>这里主要通过三个方面简单介绍nginx</p>
 <ul>
 <li>反向代理</li>
@@ -514,151 +396,65 @@ D:/resp_application/nginx-1.13.5&gt; nginx -s quit
 </ul>
 <p>本文转载至(<a href="http://www.cnblogs.com/zhouxinfei/p/7862285.html" target="_blank" rel="noopener">http://www.cnblogs.com/zhouxinfei/p/7862285.html</a>)</p>
 
-      
-    </div>
-    
-  </div>
-  
-    
-
-
-    <nav id="article-nav">
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/04/23/hello-world/">
-                    Hello World
-                </a>
-            </div>
-        
-    </nav>
-
-  
-</article>
-
-    <div id="toc" class="toc-article">
-        <strong class="toc-title">文章目录</strong>
-        
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx概述"><span class="toc-number">1.</span> <span class="toc-text">nginx概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#反向代理"><span class="toc-number">1.1.</span> <span class="toc-text">反向代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#负载均衡"><span class="toc-number">1.2.</span> <span class="toc-text">负载均衡</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx安装"><span class="toc-number">2.</span> <span class="toc-text">Nginx安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#windows安装"><span class="toc-number">2.1.</span> <span class="toc-text">windows安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ubuntu安装"><span class="toc-number">2.2.</span> <span class="toc-text">ubuntu安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mac-os安装"><span class="toc-number">2.3.</span> <span class="toc-text">mac os安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx配置"><span class="toc-number">3.</span> <span class="toc-text">nginx配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#main模块"><span class="toc-number">3.1.</span> <span class="toc-text">main模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#event模块"><span class="toc-number">3.2.</span> <span class="toc-text">event模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http模块"><span class="toc-number">3.3.</span> <span class="toc-text">http模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础配置"><span class="toc-number">3.3.1.</span> <span class="toc-text">基础配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#日志配置"><span class="toc-number">3.3.2.</span> <span class="toc-text">日志配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SSL证书加密"><span class="toc-number">3.3.3.</span> <span class="toc-text">SSL证书加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#压缩配置"><span class="toc-number">3.3.4.</span> <span class="toc-text">压缩配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件缓存配置"><span class="toc-number">3.3.5.</span> <span class="toc-text">文件缓存配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server模块"><span class="toc-number">3.4.</span> <span class="toc-text">server模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#location模块"><span class="toc-number">3.5.</span> <span class="toc-text">location模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本配置"><span class="toc-number">3.5.1.</span> <span class="toc-text">基本配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#反向代理配置方式"><span class="toc-number">3.5.2.</span> <span class="toc-text">反向代理配置方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#uwsgi配置"><span class="toc-number">3.5.3.</span> <span class="toc-text">uwsgi配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#upstream模块"><span class="toc-number">3.6.</span> <span class="toc-text">upstream模块</span></a></li></ol></li></ol>
-        
-    </div>
-    <style>
-        .left-col .switch-btn,
-        .left-col .switch-area {
-            display: none;
-        }
-        .toc-level-3 i,
-        .toc-level-3 ol {
-            display: none !important;
-        }
-    </style>
-
-    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-
-    <script>
-        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
-    </script>
-
-
-
-
-
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
-        
-
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-
-        
-            <a href="/2018/04/23/hello-world/" title="下一篇: Hello World">
-                <i class="fa fa-angle-right"></i>
+        </div>
+        <div class="post-tool">
+            <a class="btn-thumbs-up" href="javascript:void(0);" data-cid="52" title="95">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i> 打赏
             </a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/05/06/Nginx安装及配置详解/">Nginx安装及配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/23/hello-world/">Hello World</a></li></ul>
-
-
-
-
-    <script>
-        
-    </script>
-</div>
-      <footer id="footer">
-    <div class="outer">
-        <div id="footer-right">
-            <div class="footer-right">
-                <i class="fa fa-copyright"></i> 
-                2018 诸君拔剑ba_
-            </div>
-            <!-- 右侧底部footer -->
-            <!-- <div class="footer-right">
-                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
-            </div> -->
         </div>
         
+        <div class="post-tags">Tags：
+            
+            <a href="/tags/Nginx/">Nginx</a>
+            
+        </div>
+        
+    </article>
+    
+    <p>本文代表个人观点，内容仅供参考。若有不恰当之处，望不吝赐教！</p>
+    
+    
+</div>
+<script src="/js/busuanzi.pure.mini.js"></script>
+
+        </div><!-- end #main-->
+    </div><!-- end #body -->
+    <footer class="footer">
+    <div class="footer-inner">
+        <p>
+            <a href="/about"  title="About">About</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <!-- 自定义链接 -->
+            <a href="/help" title="help" >急救中心</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/links" title="友情链接">友情链接</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
+            <a href="/app" title="App下载">App下载</a>
+        </p>
+        <p>
+            本站点采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a>，已建立<a href="/timeline" id="siteBuildingTime"></a>天<br/>
+            ©2017 基于<a href="http://hexo.io" target="_blank">Hexo</a>搭建
+            ，主题&nbsp<a href="https://github.com/tangkunyin/hexo-theme-jsimple" target="_blank">JSimple</a>
+            ，作者<a href="https://www.tangkunyin.com" target="_blank">唐先森</a>
+            ，Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+        </p>
+        
+
     </div>
 </footer>
-    </div>
-    
-<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+<script src="/js/InsightSearch.js"></script>
+<script src="/js/SimpleCore.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            var iPad = window.navigator.userAgent.indexOf('iPad');
-            if (iPad > -1 || $(".left-col").css("display") === "none") {
-                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
-                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
-                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
-            }
-            else {
-                var backgroundnum = 1;
-                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
-                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
-            }
-        })
-    </script>
-
-
-
-
-
-<div class="scroll" id="scroll">
-    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
-    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
-    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<div class="fixed-btn">
+    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
 </div>
 <script>
-    // Open in New Window
-    
-        var oOpenInNew = {
-            
-            
-            
-            
-            
-            
-             archives: ".archive-article-title", 
-             miniArchives: "a.post-list-link", 
-            
-             friends: "#js-friends a", 
-             socail: ".social a" 
-        }
-        for (var x in oOpenInNew) {
-            $(oOpenInNew[x]).attr("target", "_blank");
-        }
-    
+    $(function () {
+        SimpleCore.init({
+            buildingTime: '01/20/2018',
+            current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            snsQRCode: '/images/sns-qrcode.png',
+            donateImg: '/images/donate-qr.png',
+        });
+    });
 </script>
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
-  </div>
 </body>
 </html>
